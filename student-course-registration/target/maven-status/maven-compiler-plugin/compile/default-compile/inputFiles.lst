@@ -1,0 +1,11 @@
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/StudentCourseRegistrationApplication.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/config/OpenApiConfig.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/controller/StudentController.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/dto/CourseUpdateRequest.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/dto/StudentRequest.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/exception/ApiError.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/exception/DuplicateEmailException.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/exception/GlobalExceptionHandler.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/exception/StudentNotFoundException.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/model/Student.java
+/home/karthiz/Projects/JavaProjects/Stackly_Tasks/task_jun24/student-course-registration/src/main/java/com/stackly/studentcourse/service/StudentService.java
