@@ -3,6 +3,7 @@ package com.stackly.studentcourse.service;
 import com.stackly.studentcourse.dto.CourseUpdateRequest;
 import com.stackly.studentcourse.dto.StudentRequest;
 import com.stackly.studentcourse.exception.DuplicateEmailException;
+import com.stackly.studentcourse.exception.FieldValidationException;
 import com.stackly.studentcourse.exception.StudentNotFoundException;
 import com.stackly.studentcourse.model.Student;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class StudentService {
     private final AtomicLong idSequence = new AtomicLong(0);
 
     public Student register(StudentRequest request) {
+        validateName(request.getStudentName());
         boolean emailTaken = store.values().stream()
                 .anyMatch(s -> s.getEmail().equalsIgnoreCase(request.getEmail()));
         if (emailTaken) {
@@ -46,6 +48,7 @@ public class StudentService {
 
     public Student update(Long id, StudentRequest request) {
         Student student = findById(id);
+        validateName(request.getStudentName());
         store.values().stream()
                 .filter(s -> !s.getStudentId().equals(id))
                 .filter(s -> s.getEmail().equalsIgnoreCase(request.getEmail()))
@@ -67,6 +70,12 @@ public class StudentService {
     public void delete(Long id) {
         if (store.remove(id) == null) {
             throw new StudentNotFoundException(id);
+        }
+    }
+
+    private void validateName(String studentName) {
+        if (studentName != null && studentName.trim().length() < 3) {
+            throw new FieldValidationException("Student name must be at least 3 characters long");
         }
     }
 }

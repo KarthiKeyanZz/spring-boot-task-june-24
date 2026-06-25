@@ -1,5 +1,6 @@
 package com.stackly.studentcourse.dto;
 
+import com.stackly.studentcourse.validation.CollegeEmail;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ public class StudentRequest {
 
     @NotBlank(message = "Email cannot be empty")
     @Email(message = "Enter valid email")
+    @CollegeEmail
     private String email;
 
     @NotNull(message = "Age is required")

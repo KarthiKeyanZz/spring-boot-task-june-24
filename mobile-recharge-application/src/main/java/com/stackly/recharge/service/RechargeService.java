@@ -2,6 +2,7 @@ package com.stackly.recharge.service;
 
 import com.stackly.recharge.dto.PlanUpdateRequest;
 import com.stackly.recharge.dto.RechargeRequest;
+import com.stackly.recharge.exception.FieldValidationException;
 import com.stackly.recharge.exception.InvalidRechargeStateException;
 import com.stackly.recharge.exception.RechargeNotFoundException;
 import com.stackly.recharge.model.Recharge;
@@ -21,6 +22,7 @@ public class RechargeService {
     private final AtomicLong idSequence = new AtomicLong(0);
 
     public Recharge create(RechargeRequest request) {
+        validateAmount(request.getAmount());
         long id = idSequence.incrementAndGet();
         Recharge recharge = new Recharge(id, request.getMobileNumber(), request.getOperator(),
                 request.getAmount(), request.getPlanType(), RechargeStatus.PENDING);
@@ -43,6 +45,7 @@ public class RechargeService {
     public Recharge update(Long id, RechargeRequest request) {
         Recharge recharge = findById(id);
         requirePending(recharge);
+        validateAmount(request.getAmount());
         recharge.setMobileNumber(request.getMobileNumber());
         recharge.setOperator(request.getOperator());
         recharge.setAmount(request.getAmount());
@@ -53,6 +56,7 @@ public class RechargeService {
     public Recharge updatePlan(Long id, PlanUpdateRequest request) {
         Recharge recharge = findById(id);
         requirePending(recharge);
+        validateAmount(request.getAmount());
         recharge.setPlanType(request.getPlanType());
         recharge.setAmount(request.getAmount());
         return recharge;
@@ -61,6 +65,12 @@ public class RechargeService {
     public void delete(Long id) {
         if (store.remove(id) == null) {
             throw new RechargeNotFoundException(id);
+        }
+    }
+
+    private void validateAmount(Integer amount) {
+        if (amount != null && amount > 5000) {
+            throw new FieldValidationException("Recharge amount cannot exceed 5000");
         }
     }
 

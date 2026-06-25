@@ -16,6 +16,11 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(FieldValidationException.class)
+    public ResponseEntity<MessageResponse> handleFieldValidation(FieldValidationException ex) {
+        return new ResponseEntity<>(new MessageResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(RechargeNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(RechargeNotFoundException ex, HttpServletRequest request) {
         ApiError error = new ApiError(HttpStatus.NOT_FOUND.value(), "Not Found",

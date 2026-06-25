@@ -1,5 +1,6 @@
 package com.stackly.leave.dto;
 
+import com.stackly.leave.validation.LeaveType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ public class LeaveApplicationRequest {
     private String employeeName;
 
     @NotBlank(message = "Leave type is mandatory")
+    @LeaveType
     private String leaveType;
 
     @NotNull(message = "Number of days is required")

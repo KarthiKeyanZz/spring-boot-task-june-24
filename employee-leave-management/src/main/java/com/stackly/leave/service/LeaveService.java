@@ -2,6 +2,7 @@ package com.stackly.leave.service;
 
 import com.stackly.leave.dto.LeaveApplicationRequest;
 import com.stackly.leave.dto.LeaveStatusUpdateRequest;
+import com.stackly.leave.exception.FieldValidationException;
 import com.stackly.leave.exception.InvalidLeaveStateException;
 import com.stackly.leave.exception.LeaveRequestNotFoundException;
 import com.stackly.leave.model.LeaveRequest;
@@ -21,6 +22,7 @@ public class LeaveService {
     private final AtomicLong idSequence = new AtomicLong(0);
 
     public LeaveRequest apply(LeaveApplicationRequest request) {
+        validateNumberOfDays(request.getNumberOfDays());
         long id = idSequence.incrementAndGet();
         LeaveRequest leave = new LeaveRequest(id, request.getEmployeeName(), request.getLeaveType(),
                 request.getNumberOfDays(), request.getReason(), LeaveStatus.PENDING);
@@ -46,6 +48,7 @@ public class LeaveService {
             throw new InvalidLeaveStateException(
                     "Only PENDING leave requests can be edited. Current status: " + leave.getStatus());
         }
+        validateNumberOfDays(request.getNumberOfDays());
         leave.setEmployeeName(request.getEmployeeName());
         leave.setLeaveType(request.getLeaveType());
         leave.setNumberOfDays(request.getNumberOfDays());
@@ -66,6 +69,12 @@ public class LeaveService {
     public void delete(Long id) {
         if (store.remove(id) == null) {
             throw new LeaveRequestNotFoundException(id);
+        }
+    }
+
+    private void validateNumberOfDays(Integer numberOfDays) {
+        if (numberOfDays != null && numberOfDays > 30) {
+            throw new FieldValidationException("Leave cannot exceed 30 days in a single request");
         }
     }
 }

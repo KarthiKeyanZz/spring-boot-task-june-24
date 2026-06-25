@@ -1,5 +1,6 @@
 package com.stackly.recharge.dto;
 
+import com.stackly.recharge.validation.OperatorCode;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ public class RechargeRequest {
     private String mobileNumber;
 
     @NotBlank(message = "Operator is required")
+    @OperatorCode
     private String operator;
 
     @NotNull(message = "Amount is required")

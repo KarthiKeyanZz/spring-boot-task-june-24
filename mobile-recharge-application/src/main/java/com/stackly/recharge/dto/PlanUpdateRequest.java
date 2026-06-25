@@ -4,9 +4,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-/**
- * Partial update payload used by the PATCH endpoint to switch the plan / amount of a pending recharge.
- */
 public class PlanUpdateRequest {
 
     @NotBlank(message = "Plan type is required")
